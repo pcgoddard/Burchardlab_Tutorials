@@ -1,5 +1,5 @@
-#ADMIXTURE Tutorial
-####Pagé Goddard
+# ADMIXTURE Tutorial
+#### Pagé Goddard
 ___
 
 Tutorial for calculating global ancestry proportions from **known ancestral populations** using ADMIXTURE.
@@ -33,7 +33,7 @@ sagegenofile="$datadir/sage/SAGE_mergedLAT-LATP_030816_rsID"
 ancestralgenofile="$ancestraldir/merged_ceu_yri_final_rsid_NoDupSNP" # reference panel genotypes; european, african
 ```
 
-### PLINK: format data
+## PLINK: format data
 ADMIXTURE requires 1 input that contains your population of unknown ancestry and the references of known ancestry. 
 If you do not have a cohort-reference panel file, you must merge them together in PLINK. 
 **NB**: plink will merge the files in alphabetical order by FID, so you may have your reference panels merged into the middle of the file rather than appended.
@@ -58,7 +58,7 @@ plink --bfile $merge --recode 12 --out $myadmix
 
 *optional: thin files for admixture, see bottom*
 
-### R: build popfile
+## R: build popfile
 .pop is required for supervised admixture estimation; Each line of the .pop file corresponds to individual listed on the same line number in the .fam file. If the individual is a population reference, the .pop file line should be a string (beginning with an alphanumeric character) designating the population. If the individual is of unknown ancestry, use “-” (or a blank line, or any non-alphanumeric character) to
 indicate that the ancestry should be estimated. The final format should be a **single column** with **no header** that lines up with the fam file as shown here:
 
@@ -95,7 +95,7 @@ write.table(popfile, file=paste("sage2_mergedLAT-LATP_ref_ceu_yri_recode12_", da
     # same prefix as $myadmix input
 ```
 
-### ADMIXTURE: calculate global ancestry
+## ADMIXTURE: calculate global ancestry
 ```bash
 # ADMIXTURE variables
 
@@ -114,7 +114,7 @@ seed="2017"
 admixture $myadmix.ped $npop --supervised --seed=$seed -j$nthreads
 ```
 
-# Admixture output:
+### Admixture output:
 myadmix.2.P - allele frequencies of the inferred ancestral populations (SNP x ancestry)
 *order: CEU YRI*
 ```bash
@@ -179,7 +179,7 @@ head $admixprop_sorted
     # CH30357 CH30357 0.134801 0.865199
 ```
 
-## Plotting ADMIXTURE results
+### Plotting results
 
 ```R
 #### files must be formatted with: race, eur, afr, natam
@@ -198,11 +198,11 @@ sage <- read.delim(print("$myadmix.2.Q"))
 colnames(sage) <- c("EUR","AFR")
 cbind(race = "AA", sage)
 head(sage)
-    # race      EUR      AFR
-    # AA 0.142886 0.857114
-    # AA 0.123782 0.876218
-    # AA 0.208400 0.791600
-    # AA 0.109842 0.890158
+    #  race      EUR      AFR
+    #  AA 0.142886 0.857114
+    #  AA 0.123782 0.876218
+    #  AA 0.208400 0.791600
+    #  AA 0.109842 0.890158
 
 # order data by increasing european ancestry
 eur.sort = sage[order(sage$EUR),]
@@ -237,7 +237,7 @@ afr.plot
 
 ***
 
-### Thinning files
+## Thinning files
 [Documentation](https://www.genetics.ucla.edu/software/admixture/admixture-manual.pdf) SEC 2.3
 
 * speeds up ADMIXTURE
