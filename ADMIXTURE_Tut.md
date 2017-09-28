@@ -3,7 +3,9 @@
 ___
 
 Tutorial for calculating global ancestry proportions from **known ancestral populations** using ADMIXTURE.
+
 Sample data: SAGE 2
+
 Shell and R
 
 [ADMIXTURE manual](https://www.genetics.ucla.edu/software/admixture/admixture-manual.pdf)
