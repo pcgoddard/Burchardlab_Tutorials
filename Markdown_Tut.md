@@ -8,10 +8,9 @@
     - OR MarkdownBuddy
 
 ### Headings
+Use \# to indicate header level
 # \# Heading1
-
 ## \#\# Sub-heading
-
 ###### \#\#\#\#\#\# level 6 subheading
 
 ### Emphasis
@@ -116,10 +115,10 @@ removes special syntax meaning:
 \{ \} \[ \] \( \) \!
 
 ### Emjois (github)
-:+1: = thumbs up
+:+1: = \:\+1\:
 
-:sparkles:
+:sparkles: = \:sparkles\:
 
-:octocat:
+:octocat: = \:octocat\:
 
 etc.
