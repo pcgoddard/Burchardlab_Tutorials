@@ -2,7 +2,7 @@
 ### Pagé Goddard
 
 ### Sublime add-ons
-* MarkdownEditor # for easier visualization pre-publication
+* ==MarkdownEditor== # for easier visualization pre-publication
 * OmniMarkupPreviewer # for previewing published document
     - ctrl + alt + o
     - OR MarkdownBuddy
