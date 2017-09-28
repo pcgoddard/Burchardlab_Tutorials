@@ -72,7 +72,7 @@ mygenoData <- GenotypeData(mygeno)
 Identifying a **mutually unrelated** and **ancestry representative** subset of individuals. `KING-robust` kinship coefficient estimator provides negative estimates for unrelated pairs with divergent ancestry to prioritize ancestrally-diverse individuals for the representative subset. Can be calculated with `KING-robust` from `GENESIS` or `snpgdsIBDKING` from `SNPRelate`.
 
 ##### with KING-robust
-######KING (external [program](http://people.virginia.edu/~wc9c/KING/manual.html))
+###### KING (external [program](http://people.virginia.edu/~wc9c/KING/manual.html))
 * **input**: PLINK binary ped bile  `genotype.bed`
 * **command**: king -b `genotype.bed` --kinship
 * **output**: `king.kin`, `king.kin0`
@@ -103,7 +103,7 @@ head king.kin0 # between family
 ##  28      3       1344    12      2367180 0.094   0.1091  -0.2225
 ```
 
-######convert to matrix with king2mat (GENESIS package)
+###### convert to matrix with king2mat (GENESIS package)
 * **input**: `.kin` and `.kin0` and `iid`
 * **command**: `king2mat`
 * **output**: matrix
@@ -135,7 +135,7 @@ KINGmat[1:5,1:5]
 ```
 
 ##### with SNPRelate
-######prefered since it can be done in R
+###### prefered since it can be done without leaving R
 The vignette states: "Alternative to running the KING software, the `snpgdsIBDKING` function from the `SNPRelate` package can be used to calculate the KING-robust estimates directly from a GDS file. The ouput of this function contains a matrix of pairwise estimates, which can be used by the `GENESIS` functions" **this is a lie** You must extract the matrix and prepend the IIDs as row and column names.
 
 Input: `mygenotype.gds`
@@ -267,7 +267,7 @@ using a reference population alongside sample; perhaps to determine which PCs ca
     pcair(genoData = mygenoData,  kinMat = KINGmat, divMat = KINGmat, unrel.set = IDs) # IDs of individuals from ref panel included in mygenoDate; partition IDs first, then sample
 ```
 
-######Plotting PC-Air PCs
+###### Plotting PC-Air PCs
 
 `plot` method provided by `GENESIS` package. Each point represents one individual. Visualization of population structure to **identify clusters of individuals with similar ancestry**. Can by altered by standard `plot` function manipulation. [Basis](https://www.rdocumentation.org/packages/graphics/versions/3.4.0/topics/plot) and [More Details](http://www.statmethods.net/advgraphs/parameters.html)
 
