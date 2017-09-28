@@ -34,10 +34,8 @@ Use \# to indicate header level
 2. lists
 3. use
     1. numbers
-        * or bullets
-        - \* or \-
-    b. but not letters
-    2. number of tabs determines bullet level
+    2. but not letters
+        * number of tabs determines bullet level
 
 ##### task list
 - [x] - [x] this is a **complete** item
