@@ -113,10 +113,10 @@ removes special syntax meaning:
 \{ \} \[ \] \( \) \!
 
 ### Emjois (github)
-:+1: = \:\+1\:
+:+1: = \: \+ 1 \:
 
-:sparkles: = \:sparkles\:
+:sparkles: = \: sparkles \:
 
-:octocat: = \:octocat\:
+:octocat: = \: octocat \:
 
 etc.
