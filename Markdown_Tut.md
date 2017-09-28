@@ -2,17 +2,17 @@
 ### Pagé Goddard
 
 ### Sublime add-ons
-* ==MarkdownEditor== # for easier visualization pre-publication
-* OmniMarkupPreviewer # for previewing published document
+* MarkdownEditor *# for easier visualization pre-publication*
+* OmniMarkupPreviewer *# for previewing fully formatted document*
     - ctrl + alt + o
     - OR MarkdownBuddy
 
 ### Headings
-# \# or < h1 > tag: Heading1
+# \# Heading1
 
-## \#\# or < h2 > tag: Sub-heading
+## \#\# Sub-heading
 
-###### \#\#\#\#\#\# or < h6 > tag: level 6 subheading
+###### \#\#\#\#\#\# level 6 subheading
 
 ### Emphasis
 *italic:* \*word\* or \_word\_
@@ -41,9 +41,9 @@
     2. number of tabs determines bullet level
 
 ##### task list
-- [x] this is a **complete** item
-- [ ] this is an *incomplete* item
-- [ ] list autopopulates format
+- [x] - [x] this is a **complete** item
+- [ ] - [ ] this is an *incomplete* item
+- [ ] - [ ] list autopopulates format
 
 ### Images
 \!\[Alt Text](url)
@@ -103,10 +103,7 @@ cell 1.2 | cell 2.2
 
 ### Line breaks
 * 3 or more \* \- or \_
-
 ---
-___
-***
 
 
 ### Escaping characters
