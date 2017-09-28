@@ -12,7 +12,7 @@
 
 [SNPRelate](https://www.rdocumentation.org/packages/SNPRelate/versions/1.6.4)
 
-### LIBRARIES
+### Libraries
 ```R
 # be sure to install biocLite
 source("https://bioconductor.org/biocLite.R")
@@ -23,7 +23,7 @@ library(SNPRelate)
 library(gdsfmt)
 ```
 
-### INPUT FILES
+### Input Files
 GENESIS uses a model-free approach and thus requires only the genotype file and no externally calculated ancestry proportions. The functions in the `GENESIS` package read genotype data from a GenotypeData class object created by the `GWASTools` package. Through the use of `GWASTools`, a `GenotypeData` class object can easily be created from:
 
 * Plink Files
