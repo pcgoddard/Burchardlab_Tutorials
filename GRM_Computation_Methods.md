@@ -3,7 +3,7 @@
 
 ### Resources
 
-######TOPmed Pipline 
+###### TOPmed Pipline 
 * [github](https://github.com/UW-GAC/analysis_pipeline)
 * [slides](https://uw-gac.github.io/topmed_workshop_2017/computing-a-grm.html)
 
@@ -101,4 +101,3 @@ From the publication: *As a by-product, we provide a function in GCTA to **calcu
 
 ## Overall winner: GENESIS/TOPmed Pipeline 
 see [tutorial](https://github.com/pcgoddard/Burchardlab_Tutorials/blob/master/GENESIS_PCRelate_Tut.md)
-\
