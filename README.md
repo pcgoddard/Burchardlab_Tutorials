@@ -6,3 +6,4 @@ I have set up this repository as a catch-all for the notes I make as I learn new
 - **Markdown** - quick summary of markdown syntax used to create the following files
 - **ADMIXTURE** - used to estimate global genetic ancestry; walkthrough of a supervised admixed run on African Americans
 - **GENESES_PCRelate** - used to estimate relatedness measurements in sample; genetic relatedness matrix generation
+- **GRM Methods Comparison** - evaluates Pro's and Con's of 3 common GRM computation programs (GENESIS, REAP, GCTA) and conlcudes that GENESIS is the most robust for admixed populations
