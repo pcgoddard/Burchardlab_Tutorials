@@ -80,4 +80,6 @@ scp username@hostname.edu:path/to/file/filename.csv ~/Desktop
 
 ###### or use filezilla GUI
 
+Angel's step-by-step instructions for setting up FileZilla can be found on the Wiki [here](https://wiki.library.ucsf.edu/display/UAC/How+to+transfer+files+between+cesar+and+your+desktop+with+your+private+key)
+
 # you can now read your data into R studio from your personal computer
