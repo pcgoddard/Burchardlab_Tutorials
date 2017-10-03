@@ -1,6 +1,6 @@
 # Navigating the Server: Bash Commands
 ## Notes by: Pagé Goddard
-## Tutorial session by: Jennier Liberto
+## Tutorial session by: Jennifer Liberto
 
 ### look at your directory contents
 * `ls` lists just the file and subfolder names in your directory
