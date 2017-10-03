@@ -67,7 +67,7 @@ path/to/desired/directory # you are now in the directory you asked for
 
 ### copying files to your computer
 
-###### on a mac/linux
+##### on a mac/linux
 
 ```bash
 exit # leave server
@@ -78,8 +78,8 @@ scp username@hostname.edu:path/to/file/filename.csv ~/Desktop
 * `scp` = secure copy paste (copy paste over secure ssh connection)
 * to push to server, just switch ~/Desktop and username@hostname.edu:/path
 
-###### or use filezilla GUI
+##### or use filezilla GUI
 
-Angel's step-by-step instructions for setting up FileZilla can be found on the Wiki [here](https://wiki.library.ucsf.edu/display/UAC/How+to+transfer+files+between+cesar+and+your+desktop+with+your+private+key)
+Angel's step-by-step instructions for setting up `FileZilla` can be found on the Wiki [here](https://wiki.library.ucsf.edu/display/UAC/How+to+transfer+files+between+cesar+and+your+desktop+with+your+private+key)
 
 # you can now read your data into R studio from your personal computer
