@@ -418,7 +418,7 @@ mkdir QC8_split_m_cntl && mv *_male_controls_chr* QC8_split_m_cntl
 # m: 238
 ```
 
-SNPs
+SNPs (chr 1)
 
 command | removed | remaining
 -|-|-
@@ -427,7 +427,9 @@ geno | 0 | 332237
 HWE  | 195 | 332042
 MAF  | 230023 | 102019
 
-**final SNP count:** 102019
+**final SNP count on chr 1:** 102019
+
+* ideally you will want to report the total SNPs across all 22 chromosomes being analyzed
 
 Individuals
 
