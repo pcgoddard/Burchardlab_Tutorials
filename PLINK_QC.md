@@ -321,13 +321,13 @@ done
 # make a separate directory for each QC stage and move the appropriate files into each
 # be sure to leave the last set of QC files in your working directory for easy access
 
-mkdir QC1_update_sex && mv *_sex_chr* QC1_update_sex
-mkdir QC2_remove_saliva && mv *_nosaliva_chr* QC2_remove_saliva
-mkdir QC3_remove_over21 && mv *_no21plus_chr* QC3_remove_over21
-mkdir QC4_genotype_efficiency && mv *_geno05_chr* QC3_genotype_efficiency
-mkdir QC5_individ_efficiency && mv *_mind05_chr* QC4_individ_efficiency
-mkdir QC6_cryptic_relatedness && mv *_decrypted_chr* QC5_cryptic_relatedness
-mkdir QC7_maf_05 && mv *_maf05_chr* QC7_MAF_05
+mkdir QC1_update_sex && mv ${out}_sex_chr* QC1_update_sex
+mkdir QC2_remove_saliva && mv ${out}_nosaliva_chr* QC2_remove_saliva
+mkdir QC3_remove_over21 && mv ${out}_no21plus_chr* QC3_remove_over21
+mkdir QC4_genotype_efficiency && mv ${out}_geno05_chr* QC3_genotype_efficiency
+mkdir QC5_individ_efficiency && mv ${out}_mind05_chr* QC4_individ_efficiency
+mkdir QC6_cryptic_relatedness && mv ${out}_decrypted_chr* QC5_cryptic_relatedness
+mkdir QC7_maf_05 && mv ${out}_maf05_chr* QC7_MAF_05
 
 ls -1 $wrkdir
 # QC1_update_sex
@@ -413,9 +413,9 @@ wc -l ${out}_female_controls_chr22.fam
 ##### clean up space
 ```bash
 # finish clean up
-mkdir QC8_MAF_05 && mv *_maf05_finalQC_chr* QC8_MAF_05
-mkdir QC8_split_fm_cntl && mv *_female_controls_chr* QC8_split_fm_cntl
-mkdir QC8_split_m_cntl && mv *_male_controls_chr* QC8_split_m_cntl
+mkdir QC8_MAF_05 && mv ${out}_maf05_finalQC_chr* QC8_maf_05
+mkdir QC8_split_fm_cntl && mv ${out}_female_controls_chr* QC8_split_fm_cntl
+mkdir QC8_split_m_cntl && mv ${out}_male_controls_chr* QC8_split_m_cntl
 ```
 
 ##### Final QC Stats
