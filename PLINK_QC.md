@@ -63,17 +63,15 @@ done
 ```
 
 * `for ((i=1;i<=22;i++))` - "for every value of `i` between 1 and 22, run the following script;" in the plink script, we then tell bash that the `i` refers to chromosome number in the file name using `filename_chr$i`; this is useful if your genotype data is divided by chromosome
-* `--noweb` - not necessary
 * `--bfile` - read from binary files with the prefix `inputfile_chr$i` where `$i` is the chromosome number from your `for` loop; your bfiles are your `.bim`, `.bed`, and `.fam` files where bim and fam are files contianing IDs for the SNPs and Individuals and .bed is the genotype file
-* `--remove` - remove all IDs listed in the named file (in this case, the file removeme); there are a ton of different commands to use here, depending on what you want to do. A typical pipeline example can be found below.
-* `--make-bed` - write the outfiles in as `.bed`, `.bim`, `.fam`
-* `--out` - with the following prefix
+* `--remove` - there are a ton of different commands to use here, depending on what you want to do (see resources). A typical pipeline example can be found below.
+
 
 ## Some Plink command options for QC
 This options replace the `--remove filename` option
 
 option | description | notes
--------|------
+-------|-------------|-
 `--update-sex filename` | updates sex label for individuals in filename | expects file with `FID` `IID` `sex (1,2)`, no header
 `--remove filename` | removes samples in list | expects file with `FID` `IID`, no header
 `--geno 0.05` | filters SNPs with genotyping frequency below 95% | to get a file listing the snps that remain after filtering, include `--write-snp.list`
