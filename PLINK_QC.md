@@ -10,7 +10,7 @@
 
 [Tufts QC Vignette](http://sites.tufts.edu/cbi/files/2013/01/GWAS_Exercise5_QC.pdf)
 
-Turner, Stephen et al. “Quality Control Procedures for Genome Wide Association Studies.” Current protocols in human genetics / editorial board, Jonathan L. Haines ... [et al.] CHAPTER (2011): Unit1.19. PMC. Web. 6 Oct. 2017. [PMC3066182](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3066182/)
+[PMC3066182](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3066182/) Turner, Stephen et al. “Quality Control Procedures for Genome Wide Association Studies.” Current protocols in human genetics / editorial board, Jonathan L. Haines ... [et al.] CHAPTER (2011): Unit1.19. PMC. Web. 6 Oct. 2017.
 
 ## Basics of Quality Control (QC)
  *why we care:* With GWAS, hundreds of thousands of genotypes are generated so even a small percentage of genotyping error can lead to spurious GWAS results. This tutorial focuses on **downstream QC** (i.e. data cleaning after you have the genotype calls).
