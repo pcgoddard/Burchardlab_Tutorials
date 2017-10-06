@@ -1,6 +1,6 @@
 # Plink QC Pipeline
 ### Pagé Goddard
-##### Oct 4 2017
+##### Oct 6 2017
 ---
 
 ## Resources
@@ -40,18 +40,32 @@ Mendelian errors | in family data evidence of non-Mendelian transmission | N/A
 
 ## Example Plink command
 ```bash
+
+plink --noweb --bfile inputfile --remove removeme.txt --make-bed --out outputfile
+
+# basic command if all genotype data is in one file
+```
+* `plink` - calls plink in shell environment
+* `--no-web` - usually not necessary; tells PLINK not to connect to the internet (which makes it slow)
+* `--bfile` - tells plink to read fyour binary files `inputfile.bim`, `inputfile.fam`, `inputfile.bed`
+* `--remove` - tells plink to remove all IDs listed in the named file
+* `--make-bed` - write the outfile in our favorite `.bed`, `.bim`, `.fam` form
+* `--out` - write my outfile with the following prefix
+```bash
 for ((i=1;i<=22;i++))
 do 
-plink --noweb --bfile inputfile_chr$i --remove $removeme --make-bed --out outputfile_chr$i
+plink --noweb --bfile inputfile_chr$i --remove removeme.txt --make-bed --out outputfile_chr$i
 done
+
+# if geno data is split by chromosome
 ```
 
 * `for ((i=1;i<=22;i++))` - "for every value of `i` between 1 and 22, run the following script;" in the plink script, we then tell bash that the `i` refers to chromosome number in the file name using `filename_chr$i`; this is useful if your genotype data is divided by chromosome
-* `--noweb` - tells plink not to try to connect to the ether (may not be necessary)
-* `--bfile` - tells plink to read from binary files with the prefix `inputfile_chr$i` where `$i` is the chromosome number from your `for` loop; your bfiles are your `.bim`, `.bed`, and `.fam` files where bim and fam are files contianing IDs for the SNPs and Individuals and .bed is the genotype file
-* `--remove` - tells plink to remove all IDs listed in the next file (in this case, the file removeme); there are a ton of different commands to use here, depending on what you want to do. A typical pipeline example can be found below
-* `--make-bed` - write the outfile in our favorite `.bed`, `.bim`, `.fam` form
-* `--out` - write my outfile with the following prefix
+* `--noweb` - not necessary
+* `--bfile` - read from binary files with the prefix `inputfile_chr$i` where `$i` is the chromosome number from your `for` loop; your bfiles are your `.bim`, `.bed`, and `.fam` files where bim and fam are files contianing IDs for the SNPs and Individuals and .bed is the genotype file
+* `--remove` - remove all IDs listed in the named file (in this case, the file removeme); there are a ton of different commands to use here, depending on what you want to do. A typical pipeline example can be found below.
+* `--make-bed` - write the outfiles in as `.bed`, `.bim`, `.fam`
+* `--out` - with the following prefix
 
 ## Some Plink command options for QC
 This options replace the `--remove filename` option
@@ -244,61 +258,62 @@ done
 # 332237 variants and 1954 people pass filters and QC.
 ```
 
-##### 3: Filtered out SNPs with genotyping efficiency below 95%
+##### 3: Remove individuals over 21
 ```bash
 for ((i=1;i<=22;i++))
-do plink --noweb --bfile ${out}_nosaliva_chr$i --geno 0.05 --make-bed --out ${out}_geno05_chr$i
+do plink --noweb --bfile ${out}_nosaliva_chr$i --remove $removeme_old --make-bed --out ${out}_no21plus_chr$i
+done
+
+# 332237 variants and 1715 people pass filters and QC.
+```
+
+##### 4: Filtered out SNPs with genotyping efficiency below 95%
+```bash
+for ((i=1;i<=22;i++))
+do plink --noweb --bfile ${out}_no21plus_chr$i --geno 0.05 --make-bed --out ${out}_geno05_chr$i
 done
 
 # 0 variants removed due to missing genotype data (--geno)
+# 332237 variants and 1715 people pass filters and QC.
 ```
 
-##### 4: Filtered out individuals with genotyping efficiency below 95%
+##### 5: Filtered out individuals with genotyping efficiency below 95%
 ```bash
 for ((i=1;i<=22;i++))
 do plink --noweb --bfile ${out}_geno05_chr$i --mind 0.05 --make-bed --out ${out}_mind05_chr$i
 done
 
 # 0 people removed due to missing genotype data (--mind)
-```
-
-##### 5: Filtered SNPs that fail a HWE cutoff p<0.0001
-```bash
-for ((i=1;i<=22;i++))
-do plink --noweb --bfile ${out}_mind05_chr$i --hwe 0.0001 --make-bed --out ${out}_hwe0001_chr$i
-done
-
-# 195 variants removed due to Hardy-Weinberg exact test.
+# 332237 variants and 1715 people pass filters and QC.
 ```
 
 ##### 6: Screen for Cryptic relatedness
 ```bash
 for ((i=1;i<=22;i++))
-do plink --noweb --bfile ${out}_hwe0001_chr$i --genome --min 0.025 --make-bed --out ${out}_decrypted_chr$i
+do plink --noweb --bfile ${out}_mind05_chr$i --genome --min 0.025 --make-bed --out ${out}_decrypted_chr$i
 done
 
 # 1954 people (906 males, 1044 females, 4 ambiguous) loaded from .fam.
 # 1967966 variants and 1954 people pass filters and QC.
 ```
 
-##### 7: Remove individuals over 21
+##### 7: Remove SNPs with MAF < 0.05
 ```bash
 for ((i=1;i<=22;i++))
-do plink --noweb --bfile ${out}_decrypted_chr$i --remove $removeme_old --make-bed --out ${out}_no21plus_chr$i
-done
-
-# 1954 people (906 males, 1044 females, 4 ambiguous) loaded from .fam.
-# 1967966 variants and 1715 people pass filters and QC.
-```
-
-##### 8: Remove SNPs with MAF < 0.05
-```bash
-for ((i=1;i<=22;i++))
-do plink --noweb --bfile ${out}_no21plus_chr$i --maf 0.05 --make-bed --out ${out}_maf05_finalQC_chr$i
+do plink --noweb --bfile ${out}_decrypted_chr$i --maf 0.05 --make-bed --out ${out}_maf05_chr$i
 done
 
 # 230023 variants removed due to minor allele threshold(s)
 # 580425 variants and 1715 people pass filters and QC.
+```
+
+##### 8: Filtered SNPs that fail a HWE cutoff p<0.0001
+```bash
+for ((i=1;i<=22;i++))
+do plink --noweb --bfile ${out}_maf05_chr$i --hwe 0.0001 --make-bed --out ${out}_hwe0001_chr$i
+done
+
+# 195 variants removed due to Hardy-Weinberg exact test.
 ```
 
 ##### clean up space
@@ -308,47 +323,57 @@ done
 
 mkdir QC1_update_sex && mv *_sex_chr* QC1_update_sex
 mkdir QC2_remove_saliva && mv *_nosaliva_chr* QC2_remove_saliva
-mkdir QC3_genotype_efficiency && mv *_geno05_chr* QC3_genotype_efficiency
-mkdir QC4_individ_efficiency && mv *_mind05_chr* QC4_individ_efficiency
-mkdir QC5_HWE && mv *_hwe0001_chr* QC5_HWE
-mkdir QC6_cryptic_relatedness && mv *_decrypted_chr* QC6_cryptic_relatedness
-mkdir QC7_under_21_only && mv *_no21plus_chr* QC7_under_21_only
+mkdir QC3_remove_over21 && mv *_no21plus_chr* QC3_remove_over21
+mkdir QC4_genotype_efficiency && mv *_geno05_chr* QC3_genotype_efficiency
+mkdir QC5_individ_efficiency && mv *_mind05_chr* QC4_individ_efficiency
+mkdir QC6_cryptic_relatedness && mv *_decrypted_chr* QC5_cryptic_relatedness
+mkdir QC7_maf_05 && mv *_maf05_chr* QC7_MAF_05
 
 ls -1 $wrkdir
 # QC1_update_sex
 # QC2_remove_saliva
-# QC3_genotype_efficiency
-# QC4_individ_efficiency
-# QC5_HWE
+# QC3_remove_over21
+# QC4_genotype_efficiency
+# QC5_individ_efficiency
 # QC6_cryptic_relatedness
-# QC7_under_21_only
+# QC7_maf_05
 ```
 
 ##### 9: Subset into two populations: male controls, female controls
 
 ```r
-# R work
-# create subset lists of female controls and male controls for plink
+#R work: Select subjects to keep for analysis (locally in R)
 
-# to start R in terminal, type 'R' and hit enter
 setwd("/media/BurchardRaid01/LabShare/Home/pgoddard/telo_wd_171004")
 
-# get sex covariates
+# partition by sex and case/control status
 pheno <- read.csv("/media/BurchardRaid01/LabShare/Home/azeiger/Telomere/SAGE/sage2_clean2016_02_23_de_ident.csv", header=T)
-covars <- read.csv("tel_res_MQ_SAGE2_09252017_FINAL.csv", header=T)
+telodat <- read.csv("raw_data/tel_res_MQ_SAGE2_09252017_FINAL.csv", header=T)
+telodat2 <- merge(pheno[,c("SubjectID", "Male")], telodat, by.x="SubjectID", by.y="SampleID")
 
-covars2 <- merge(pheno[,c("SubjectID", "Male")], covars, by.x="SubjectID", by.y="SampleID")
-fm_controls <- covars2[covars2$Male=="Female" & covars2$Status=="control",]
-m_controls <- covars2[covars2$Male=="Male" & covars2$Status=="control",]
+fm_cntl <- telodat2[telodat2$Male=="Female" & telodat2$Status=="control",]
+m_cntl <- telodat2[telodat2$Male=="Male" & telodat2$Status=="control",]
 
-# number of individuals in each group
-length(fm_controls$SubjectID)
-# 336
-length(m_controls$SubjectID)
-# 260
+    length(telodat$SampleID) # 1540
+    length(fm_cntl$SubjectID) # 336
+    length(m_cntl$SubjectID) # 260
 
-# create subset ID lists
-keep_female <- data.frame(fm_controls$SubjectID, fm_controls$SubjectID)
+# keep individuals with no missing covariates
+# covariate file generated with covar script: /Dropbox/Telomeres/script_telo_covars_171005.R
+covars <- read.table("tel_phenocovars_allSage2_100417.txt", header=T)
+nomisscovar <- na.omit(covars)
+
+fm_cntl_clean <- fm_cntl[fm_cntl$SubjectID %in% nomisscovar$FID,]
+m_cntl_clean <- m_cntl[m_cntl$SubjectID %in% nomisscovar$FID,]
+
+    length(fm_cntl_clean$SubjectID) # 180
+    length(m_cntl_clean$SubjectID) # 139
+
+
+# create subset ID lists for PLINK
+keep_female <- data.frame(fm_cntl_clean$SubjectID, fm_cntl_clean$SubjectID)
+keep_male <- data.frame(m_cntl_clean$SubjectID, m_cntl_clean$SubjectID)
+
 head(keep_female)
 #   BP70001 BP70001
 #   BP70002 BP70002
@@ -356,38 +381,37 @@ head(keep_female)
 #   BP70005 BP70005
 #   BP70006 BP70006
 
-keep_male <- data.frame(m_controls$SubjectID, m_controls$SubjectID)
-
-## save subset ID list as txt file: female
-write.table(keep_female, "keep_female_171004.txt", row.names=F, col.names=F, quote=FALSE, sep=" ")
-
-## save subset ID list as txt file: male 
-write.table(keep_male, "keep_male_171004.txt", row.names=F, col.names=F, quote=FALSE, sep=" ")
+# save subset ID list as txt file to wd
+write.table(keep_female, "keep_female_171006.txt", row.names=F, col.names=F, quote=FALSE, sep=" ")
+write.table(keep_male, "keep_male_171006.txt", row.names=F, col.names=F, quote=FALSE, sep=" ")
 ```
 
 ```bash
 # PLINK work
 
-## Plink command to extract female controls (n=336): 
+## Plink command to extract female controls (n=180): 
 for ((i=1;i<=22;i++))
 do plink --bfile ${out}_maf05_finalQC_chr$i --keep keep_female_${date}.txt --make-bed --out ${out}_female_controls_chr$i
 done
 
 # check
 wc -l ${out}_female_controls_chr22.fam
-# 307 
-# 29 female controls removed in QC
+# 165 
+# 15 female controls with all covariates removed by QC
 
-## Plink command to extract male controls (n=260):
+## Plink command to extract male controls (n=139):
 for ((i=1;i<=22;i++))
 do plink --noweb --bfile ${out}_maf05_finalQC_chr$i --keep keep_male_${date}.txt --make-bed --out ${out}_male_controls_chr$i
 done
 
 # check
 wc -l ${out}_female_controls_chr22.fam
-# 238
-# 22 male controls removed in QC
+# 130
+# 9 male controls with all covariates removed by QC
+```
 
+##### clean up space
+```bash
 # finish clean up
 mkdir QC8_MAF_05 && mv *_maf05_finalQC_chr* QC8_MAF_05
 mkdir QC8_split_fm_cntl && mv *_female_controls_chr* QC8_split_fm_cntl
@@ -418,32 +442,46 @@ mkdir QC8_split_m_cntl && mv *_male_controls_chr* QC8_split_m_cntl
 # m: 238
 ```
 
-SNPs (chr 1)
+###### Get summary counts per step
+```bash
+# sum line count for each chromosome .bim file
+# if data is not split by chr, you can do wc -l path/to/finalQCfile.bim
+cd $wrkdir/QC_171004/
+wc -l QC1_update_sex/${out}_sex_chr*.bim
+wc -l QC2_remove_saliva/${out}_nosaliva_chr*.bim 
+wc -l QC3_remove_over21/${out}_no21plus_chr*.bim
+wc -l QC4_genotype_efficiency/${out}_geno05_chr*.bim 
+wc -l QC5_individ_efficiency/${out}_mind05_chr*.bim 
+wc -l QC6_cryptic_relatedness/${out}_decrypted_chr*.bim
+wc -l QC7_maf_05/${out}_maf05_chr*.bim
+wc -l QC8_hwe/${out}_hwe0001_chr*.bim
+```
 
-command | removed | remaining
--|-|-
-*initial* | 0 | 332237
-geno | 0 | 332237
-HWE  | 195 | 332042
-MAF  | 230023 | 102019
+####### SNPs
 
-**final SNP count on chr 1:** 102019
+command   | removed      | remaining
+----------|--------------|----------
+initial   | -            | 25236191
+geno      | 0            | 25236191
+MAF       | 17711861     | 7524330
+HWE       | 5154         | 7519176
+**total** | **17717015** | **7519176**
 
-* ideally you will want to report the total SNPs across all 22 chromosomes being analyzed
 
-Individuals
+####### Individuals
 
-command | removed | remaining
--|-|-
-*initial* | 0 | 1990
-saliva | 36 | 1954
-mind | 0 | 1954
-cryptic | 0 | 1954
-> 21 | 239 | 1715
-controls only | 1170 | 545
+command   | removed | remaining
+----------|---------|----------
+*initial* | -       | 1990
+saliva    | 36      | 1954
+> 21      | 239     | 1715
+mind      | 0       | 1715
+cryptic   | 0       | 1715
+cntl only | 1170    | 545
+all covar | 250     | 295
 
-**Final Sample count:**
+* total: 295
+* female: 165
+* male: 130
 
-* total: 545
-* female: 307
-* male: 238
+\**`cntl only` = only only individuals without asthma; `all covar` = individuals with data for all relevant covariates*
