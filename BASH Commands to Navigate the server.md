@@ -65,6 +65,38 @@ path/to/desired/directory # you are now in the directory you asked for
 * to quit, click `Esc` and type :q
 * to save and quit type :wq
 
+### run a process in the background
+this is especially useful if you are running an automated script that will take a while and doesn't require interaction after it starts
+
+start a new screen
+```bash
+screen 
+# this changes your console window to a detachable "screen"
+# the top bar will now read "screen 0: username@hostname:~/PATH/TO/current_directory
+```
+start a new screen with a particular name
+```bash
+screen -S name
+```
+detach your screen
+```bash
+# while in the new screen  type
+ctrl+A ctrl+D
+```
+return to your screen
+```bash
+screen -r  # if you only have one screen; if you have multiple screens, they will show in a list here
+
+screen -r [number/name] # if returning to one of multiple screens
+```
+kill an old screen
+```bash
+screen -r [name/number] # return to screen
+
+# type
+crtl+A K
+```
+
 ### copying files to your computer
 
 ##### on a mac/linux
