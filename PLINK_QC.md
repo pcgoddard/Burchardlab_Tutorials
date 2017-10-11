@@ -436,7 +436,7 @@ wc -l QC8_hwe/${out}_hwe0001_chr*.bim
 
 command   | removed      | remaining
 ----------|--------------|----------
-initial   | -            | 25236191
+**initial**   | **-**            | **25236191**
 geno      | 0            | 25236191
 MAF       | 17711861     | 7524330
 HWE       | 5154         | 7519176
@@ -447,9 +447,9 @@ HWE       | 5154         | 7519176
 
 command   | removed | remaining
 ----------|---------|----------
-*initial* | -       | 1990
+**initial** | **-**       | **1990**
 saliva    | 36      | 1954
-> 21      | 239     | 1715
+over 21   | 239     | 1715
 mind      | 0       | 1715
 cryptic   | 0       | 1715
 cntl only | 1170    | 545
