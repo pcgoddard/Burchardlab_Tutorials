@@ -1,13 +1,23 @@
 # Navigating the Server: Bash Commands
-## Notes by: Pagé Goddard
-## Tutorial session by: Jennifer Liberto
+### Notes by: Pagé Goddard
+### Tutorial session by: Jennifer Liberto
+___
+### Contents
+* [Looking in Directories](#ls)
+* [Permissions](#permissions)
+* [Changing Directories](#cd)
+* [Read files](#less)
+* [Screen a command](#screen)
+* [Copying files to desktop](#scp)
 
+<a name="ls"></a>
 ### look at your directory contents
 * `ls` lists just the file and subfolder names in your directory
 * `ls -1` does the same, but puts it all in a single column
 * `ll` lists contents with permissions, size, and date information
 * `ls -lrta` list in reverse time, anything (lists latest last in list)
 
+<a name="permissions"></a>
 ### permissions
 `drwxr-xr`-- *example 1*
 `-rwxr-xr`-- *example 2*
@@ -17,6 +27,7 @@
 * `x` = can execute
 * `r` = can read
 
+<a name="cd"></a>
 ### changing directories
 
 ```bash
@@ -45,6 +56,7 @@ path/to/desired/directory # you are now in the directory you asked for
 
 ###### note: when typing a path, use `/` not backslash; if you get an error, check that you are not trying to `cd` into a file instead of the directory; if error persists, check your slashes, your capitalization and your path
 
+<a name="less"></a>
 ### visualize files
 `less filename` = opens 1 page view of data without printing the whole thing to screen; move by line (arrow keys) or page (space)
 
@@ -65,6 +77,7 @@ path/to/desired/directory # you are now in the directory you asked for
 * to quit, click `Esc` and type :q
 * to save and quit type :wq
 
+<a name="screen"></a>
 ### run a process in the background
 *this is especially useful if you are running an automated script that will take a while and doesn't require interaction after it starts*
 
@@ -99,6 +112,7 @@ screen -r [name/number] # return to screen
 crtl+A K
 ```
 
+<a name="scp"></a>
 ### copying files to your computer
 
 ##### on a mac/linux
@@ -116,4 +130,4 @@ scp username@hostname.edu:path/to/file/filename.csv ~/Desktop
 
 Angel's step-by-step instructions for setting up `FileZilla` can be found on the Wiki [here](https://wiki.library.ucsf.edu/display/UAC/How+to+transfer+files+between+cesar+and+your+desktop+with+your+private+key)
 
-## you can now read your data into R studio from your personal computer
+## Congrats! you can now read your data into R studio from your personal computer
