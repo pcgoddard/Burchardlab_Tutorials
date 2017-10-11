@@ -5,11 +5,15 @@
 * [Sublime Add-ons](#add-ons)
 * [Headers](#headers)
 * [Emphasis](#emphasis)
-    - [italic](#italic)
-    - [bold](#bold)
-    - [combined](#combo)
-    - [strikethrough](#strike)
 * [Lists](#lists)
+    - [unordered lists](#unordered)
+    - [ordered lists](#ordered)
+    - [task lists / check boxes](#tasks)
+* [Links](#links)
+    - [URLs](#url)
+    - [images](#images)
+    - [Table of Contents / Anchor Tags](#contents)
+
 
 
 ### Sublime add-ons <a name="add-ons"></a>
@@ -53,28 +57,37 @@ Use \# to indicate header level
 - [ ] - [ ] this is an *incomplete* item
 - [ ] - [ ] list autopopulates format
 
-### Images <a name="images"></a>
-\!\[Alt Text](url)
-
 ### Links <a name="links"></a>
-##### URLs <a name="URLs"></a>
+##### URLs <a name="urls"></a>
+example: [wikipedia](https://en.wikipedia.org/wiki/Main_Page)
 \[Alt Text](url)
 
-##### Images
-All linked images must be hosted online. You can link to an image on your local machine but it will not be viewable in the published markdown on other devices
+##### Images <a name="images"></a>
+All linked images must be hosted online. You can link to an image on your local machine but it will not be viewable in the published markdown on other devices. When the image is not publishable, the Alt Text input will be shown.
+
 ![cute puppy](https://s7.favim.com/610/151130/cute-cuties-dog-smile-Favim.com-3673417.jpg)
+
 \!\[Alt Text](url)
 
-you can resize images using HTML
+you can resize images using standard HTML
 
-##### Table of Contents Links
+<img src="https://s7.favim.com/610/151130/cute-cuties-dog-smile-Favim.com-3673417.jpg" alt="cute puppy" style="width: 200px;"/>
+
+<img src="url" alt="Alt Text" width=200/> 
+
+*note: the alt="" input is optional
+
+##### Table of Contents Links <a name="contents"></a>
 This requires use of **anchor tags** where you want the table of contents to link to.
 
-`\<a name="header1"></a>`
+\# This is my header! `\<a name="name_me"></a>`
 
 
+You can then link to that line from anywhere in the document using:
 
-### Block quotes
+\[That one header\]\(\#name_me\)
+
+### Block quotes <a name="quotes"></a>
 the following lines will be a quote
 
 \> it was the best of times
@@ -84,13 +97,14 @@ the following lines will be a quote
 > 
 > it was the worst of times
 
-### Inline Code
+### Code Blocks <a name="code"></a>
+##### Inline Code <a name="inline"></a>
 
 This is your \`code\` to highlight
 
 This is your `code` to highlight
 
-### Fenced Code Blocks
+##### Fenced Code Blocks <a name="block"></a>
 
 \```javascript
 
@@ -110,7 +124,7 @@ to put any text in a code box, just indent it once
 
     any text
 
-### Tables
+### Tables <a name="tables"></a>
 * tables use | and - to indicate field divisions
 
 column 1 | column 2
@@ -126,12 +140,12 @@ column 1 | column 2
 cell 1.1 | cell 2.1
 cell 1.2 | cell 2.2
 
-### Line breaks
+### Line breaks <a name="linebreak"></a>
 * 3 or more \* \- or \_
 ---
 
 
-### Escaping characters
+### Escaping characters <a name="escape"></a>
 removes special syntax meaning: 
 *italic* v. \*asterisks\*
 
@@ -140,14 +154,11 @@ removes special syntax meaning:
 \\ \` \* \# \_ \- \+ \.
 \{ \} \[ \] \( \) \!
 
-### Emjois (github)
+### Emjois (github) <a name="emojis"></a>
 
 (just remove the spaces)
 
 :+1: = \: \+ 1 \:
-
 :sparkles: = \: sparkles \:
-
 :octocat: = \: octocat \:
-
 etc.
