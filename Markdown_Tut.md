@@ -93,8 +93,11 @@ This is your `code` to highlight
 ### Fenced Code Blocks
 
 \```javascript
+
 function test() {
+
 console.log("hello world");
+
 \```
 
 ```javascript
