@@ -3,12 +3,12 @@
 ### Tutorial session by: Jennifer Liberto
 ___
 ### Contents
-* [Looking in Directories](#ls)
+* [`ls` - Looking in Directories](#ls)
 * [Permissions](#permissions)
-* [Changing Directories](#cd)
-* [Read files](#less)
-* [Screen a command](#screen)
-* [Copying files to desktop](#scp)
+* [`cd` - Changing Directories](#cd)
+* [`less` - Read files](#less)
+* [`screen` - Screen a command](#screen)
+* [`scp` - Copying files to desktop](#scp)
 
 <a name="ls"></a>
 ### look at your directory contents
