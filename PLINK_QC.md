@@ -2,8 +2,29 @@
 ### Pagé Goddard
 ##### Oct 6 2017
 ---
+## Content
+* [Resources](#resources)
+* [Basics of Quality Control](#intro)
+* [Example PLINK Command](#example)
+* [(Some) PLINK QC Commands](#commands)
+* [How to read the Log file](#logs)
+* [Combine genotype chr files](#concatenate)
+* [Sample Pipeline](#pipeline)
+    - [Variables](#vars)
+    - [Update sex](#sex)
+    - [Remove unwanted samples](#rmv)
+    - [Filter SNPs with low genotyping efficiency](#geno)
+    - [Filter samples with low genotyping efficiency](#mind)
+    - [Filter out too closely related individuals](#cryptic)
+    - [Filter rare SNPs](#maf)
+    - [Filter SNPs out of HWE](#hwe)
+    - [Option: Subset data](#subset)
+    - [Get QC counts for each QC step](#stats)
+    
 
-## Resources
+---
+<a name="resources"></a>
+## Resources 
 [PLINK summary statistic commands](http://zzz.bwh.harvard.edu/plink/summary.shtml)
 
 [COG-Genomics PLINK command list](https://www.cog-genomics.org/plink/1.9/data)
@@ -12,6 +33,7 @@
 
 [PMC3066182](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3066182/) Turner, Stephen et al. “Quality Control Procedures for Genome Wide Association Studies.” Current protocols in human genetics / editorial board, Jonathan L. Haines ... [et al.] CHAPTER (2011): Unit1.19. PMC. Web. 6 Oct. 2017.
 
+<a name="intro"></a>
 ## Basics of Quality Control (QC)
  *why we care:* With GWAS, hundreds of thousands of genotypes are generated so even a small percentage of genotyping error can lead to spurious GWAS results. This tutorial focuses on **downstream QC** (i.e. data cleaning after you have the genotype calls).
 
@@ -40,6 +62,7 @@ replicate discordance | agreement with independent genotyping |
 Hardy-Weinberg equilibrium | | 
 Mendelian errors | in family data evidence of non-Mendelian transmission | N/A
 
+<a name="example"></a>
 ## Example Plink command
 ```bash
 
@@ -53,6 +76,7 @@ plink --noweb --bfile inputfile --remove removeme.txt --make-bed --out outputfil
 * `--remove` - tells plink to remove all IDs listed in the named file
 * `--make-bed` - write the outfile in our favorite `.bed`, `.bim`, `.fam` form
 * `--out` - write my outfile with the following prefix
+
 ```bash
 for ((i=1;i<=22;i++))
 do 
@@ -61,12 +85,11 @@ done
 
 # if geno data is split by chromosome
 ```
-
 * `for ((i=1;i<=22;i++))` - "for every value of `i` between 1 and 22, run the following script;" in the plink script, we then tell bash that the `i` refers to chromosome number in the file name using `filename_chr$i`; this is useful if your genotype data is divided by chromosome
 * `--bfile` - read from binary files with the prefix `inputfile_chr$i` where `$i` is the chromosome number from your `for` loop; your bfiles are your `.bim`, `.bed`, and `.fam` files where bim and fam are files contianing IDs for the SNPs and Individuals and .bed is the genotype file
 * `--remove` - there are a ton of different commands to use here, depending on what you want to do (see resources). A typical pipeline example can be found below.
 
-
+<a name="commands"></a>
 ## Some Plink command options for QC
 This options replace the `--remove filename` option
 
@@ -81,7 +104,7 @@ option | description | notes
 `--genome --min 0.025` | identity by descent calculation to determine relatedness coefficient and remove individuals with values <0.025?? | These calculations are not LD-sensitive. It is usually a good idea to perform some form of LD-based pruning before invoking them.
 
 
-
+<a name="logs"></a>
 ## Log files
 * every plink command has an automatic log file output: `outfileprefix.log`
 * **number of SNPs/Samples loaded** and **number that passed QC**
@@ -122,71 +145,9 @@ sage_imputedgeno_gwas_171004_maf05_finalQC_chr1.fam ... done.
 End time: Wed Oct  4 15:01:40 2017
 ```
 
+
 # Example Run
-## Data locations
-
-* imputed genotype data:
-`/media/BurchardRaid01/LabShare/Home/dhu/sage_gwas/raw_snpid_updated/sage_imputed_mis_rsq03_snps_only_snpid_updated_chr$i`
-
-```bash
-ls -1 /media/BurchardRaid01/LabShare/Home/dhu/sage_gwas/raw_snpid_updated/
-# for every chr: log, nosex, raw, binary plink files (bim bed fam)
-
-# Geno_sage_imputed_mis_rsq03_snps_only_mex_chr10.log       # misc. PLINK output files
-# Geno_sage_imputed_mis_rsq03_snps_only_mex_chr10.nosex
-# Geno_sage_imputed_mis_rsq03_snps_only_mex_chr10.raw
-# Geno_sage_imputed_mis_rsq03_snps_only_mex_chr11.log
-# Geno_sage_imputed_mis_rsq03_snps_only_mex_chr11.nosex
-# Geno_sage_imputed_mis_rsq03_snps_only_mex_chr11.raw
-# Geno_sage_imputed_mis_rsq03_snps_only_mex_chr12.log
-# Geno_sage_imputed_mis_rsq03_snps_only_mex_chr12.nosex
-# Geno_sage_imputed_mis_rsq03_snps_only_mex_chr12.raw
-# Geno_sage_imputed_mis_rsq03_snps_only_mex_chr13.log
-# Geno_sage_imputed_mis_rsq03_snps_only_mex_chr13.nosex
-# Geno_sage_imputed_mis_rsq03_snps_only_mex_chr13.raw
-...
-# sage_imputed_mis_rsq03_snps_only_snpid_updated_chr1.bed   # genotype files by chr
-# sage_imputed_mis_rsq03_snps_only_snpid_updated_chr1.bim
-# sage_imputed_mis_rsq03_snps_only_snpid_updated_chr1.fam
-# sage_imputed_mis_rsq03_snps_only_snpid_updated_chr1.log
-# sage_imputed_mis_rsq03_snps_only_snpid_updated_chr1.nosex
-# sage_imputed_mis_rsq03_snps_only_snpid_updated_chr20.bed
-# sage_imputed_mis_rsq03_snps_only_snpid_updated_chr20.bim
-# sage_imputed_mis_rsq03_snps_only_snpid_updated_chr20.fam
-# sage_imputed_mis_rsq03_snps_only_snpid_updated_chr20.log
-```
-
-* up-to-date sex reference:
-`/media/BurchardRaid01/LabShare/Home/azeiger/Telomere/SAGE/Project/SAGE_updatedSex_GWAS.txt`
-```bash
-sexupdated='/media/BurchardRaid01/LabShare/Home/azeiger/Telomere/SAGE/Project/SAGE_updatedSex_GWAS.txt'
-
-head -3 $sexupdated # 1,2 number of X chromosomes
-# FID     IID     Sex
-# 1000    1000    2
-# 1001    1001    1
-```
-
-* individuals with saliva geno data to remove: `/media/BurchardRaid01/LabShare/Home/azeiger/Telomere/SAGE/Project/SAGE_salivaDNAexclude_082416.txt`
-```bash
-removeme_saliva="/media/BurchardRaid01/LabShare/Home/azeiger/Telomere/SAGE/Project/SAGE_salivaDNAexclude_082416.txt"
-
-head -3 $removeme_saliva
-# FID     IID
-# VA70051 VA70051
-# VA70040 VA70040
-```
-* old individuals to remove: `/media/BurchardRaid01/LabShare/Home/azeiger/Telomere/SAGE/Project/Telomere_remove_over21.txt` 
-```bash
-removeme_old="/media/BurchardRaid01/LabShare/Home/azeiger/Telomere/SAGE/Project/Telomere_remove_over21.txt"
-
-head -3 $removeme_old
-# FID     IID
-# 1021    1021
-# 1027    1027
-```
-* **note:** depending on your analysis, you can choose to keep or remove any subset of individuals; removing saliva samples is always recommended as it is prefered to work with genotypes sequenced from whole blood
-
+<a name="concatenate"></a>
 ##### If you want to merge all chromosomes into one file
 ```bash
 ### Concatenate genotype data
@@ -201,10 +162,13 @@ plink ---noweb -bfile SAGEbase_081517 --update-sex $sexupdated --make-bed --out 
     # no $i as we no longer need to call each chr individually
     # this step makes your QC run slower but your directory will look cleaner
 ```
-
+<a name="pipeline"></a>
 ## Pipeline
-This pipeline will walk you through the steps used to QC the imputed SAGE2 genotype data for the Telomere project. We did not merge chromosomes
+This pipeline will walk you through the steps used to QC the imputed SAGE2 genotype data for the Telomere project. We did not merge chromosomes.
 
+* **note:** depending on your analysis, you can choose to keep or remove any subset of individuals; removing saliva samples is always recommended as it is prefered to work with genotypes sequenced from whole blood. To do this, you need an external tab-delimited, 2-field file with the respective FID IID info for each individual you wish to remove.
+
+<a name="variables"></a>
 **set variables**
 
 * in bash, we can define variables in the environment as `var='value'` to call on later using `$var`
@@ -218,22 +182,25 @@ This pipeline will walk you through the steps used to QC the imputed SAGE2 genot
 date=171004
 
 # directories
-wrkdir="/media/BurchardRaid01/LabShare/Home/pgoddard/wrkdir" #choose your working directory
-datadir="/media/BurchardRaid01/LabShare/Home/dhu/sage_gwas/raw_snpid_updated" #identify where your genotype data are
+wrkdir="$HOME/wrkdir" #choose your working directory
+datadir="path/to/genodata" #identify where your genotype data are
 
 # reference files
-sagedata="sage_imputed_mis_rsq03_snps_only_snpid_updated_chr" #to run it will be ${sagedata}${i}
-sexupdated="/media/BurchardRaid01/LabShare/Home/azeiger/Telomere/SAGE/Project/SAGE_updatedSex_GWAS.txt"
-removeme_saliva="/media/BurchardRaid01/LabShare/Home/azeiger/Telomere/SAGE/Project/SAGE_salivaDNAexclude_082416.txt"
-removeme_old="/media/BurchardRaid01/LabShare/Home/azeiger/Telomere/SAGE/Project/Telomere_remove_over21.txt"
+sagedata="genodata" #to run it will be ${sagedata}${i} # i will be the chr number 1-22
+sexupdated="path/to/file" # list of FID IID and updated sex # optional
+removeme_saliva="path/to/file" # list of FID IID for individuals with geno data from saliva rather than blood # optional
+removeme_old="path/to/file" # list of idnividuals outside of age range # optional
 
 # output files
-out="sage_imputedgeno_gwas_${date}"
+out="mygwasdat_${date}"
 
 # move into working directory
 cd $wrkdir
 ```
 
+*note: my genotype data is split across chromosomes, so to we are looping PLINK over all 22 autosomes; to get total number of variants at each QC step we will sum across all the files at the end. Alternatively, you can run a plink command to concatenate the genotype data into one file, but the QC process is much faster when working with smaller files*
+
+<a name="sex"></a>
 ##### 1. Make sure sex is up-to-date
 ```bash
 ###1. Updating Sex in .fam file
@@ -248,7 +215,7 @@ done
 
 # the log is also written to the ${out}_sex_chr$i.log files so don't worry about losing the information on the screen
 ```
-
+<a name="rmv"></a>
 ##### 2. Remove saliva samples
 ```bash
 for ((i=1;i<=22;i++))
@@ -267,6 +234,7 @@ done
 # 332237 variants and 1715 people pass filters and QC.
 ```
 
+<a name="geno"></a>
 ##### 4: Filtered out SNPs with genotyping efficiency below 95%
 ```bash
 for ((i=1;i<=22;i++))
@@ -277,6 +245,7 @@ done
 # 332237 variants and 1715 people pass filters and QC.
 ```
 
+<a name="mind"></a>
 ##### 5: Filtered out individuals with genotyping efficiency below 95%
 ```bash
 for ((i=1;i<=22;i++))
@@ -287,6 +256,7 @@ done
 # 332237 variants and 1715 people pass filters and QC.
 ```
 
+<a name="cryptic"></a>
 ##### 6: Screen for Cryptic relatedness
 ```bash
 for ((i=1;i<=22;i++))
@@ -297,6 +267,7 @@ done
 # 1967966 variants and 1954 people pass filters and QC.
 ```
 
+<a name="maf"></a>
 ##### 7: Remove SNPs with MAF < 0.05
 ```bash
 for ((i=1;i<=22;i++))
@@ -307,6 +278,7 @@ done
 # 580425 variants and 1715 people pass filters and QC.
 ```
 
+<a name="hwe"></a>
 ##### 8: Filtered SNPs that fail a HWE cutoff p<0.0001
 ```bash
 for ((i=1;i<=22;i++))
@@ -316,6 +288,7 @@ done
 # 195 variants removed due to Hardy-Weinberg exact test.
 ```
 
+<a name="cleanup1"></a>
 ##### clean up space
 ```bash
 # make a separate directory for each QC stage and move the appropriate files into each
@@ -339,6 +312,7 @@ ls -1 $wrkdir
 # QC7_maf_05
 ```
 
+<a name="subset"></a>
 ##### 9: Subset into two populations: male controls, female controls
 
 ```r
@@ -409,7 +383,7 @@ wc -l ${out}_female_controls_chr22.fam
 # 130
 # 9 male controls with all covariates removed by QC
 ```
-
+<a name="cleanup2"></a>
 ##### clean up space
 ```bash
 # finish clean up
@@ -418,6 +392,7 @@ mkdir QC8_split_fm_cntl && mv ${out}_female_controls_chr* QC8_split_fm_cntl
 mkdir QC8_split_m_cntl && mv ${out}_male_controls_chr* QC8_split_m_cntl
 ```
 
+<a name="stats"></a>
 ##### Final QC Stats
 
 ```bash
@@ -485,3 +460,5 @@ all covar | 250     | 295
 * male: 130
 
 \**`cntl only` = only only individuals without asthma; `all covar` = individuals with data for all relevant covariates*
+
+## \#QED#
