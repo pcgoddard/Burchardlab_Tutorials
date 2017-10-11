@@ -20,7 +20,7 @@
 * [Tables](#tables)
 * [Line Breaks](#linebreaks)
 * [Using Special Characters](#escape)
-* [Emojis :stars:](#emojis)
+* [Emojis :sparkles:](#emojis)
 
 ---
 ## Sublime add-ons <a name="add-ons"></a>
@@ -67,20 +67,21 @@ Use \# to indicate header level
 ## Links <a name="links"></a>
 ##### URLs <a name="urls"></a>
 example: [wikipedia](https://en.wikipedia.org/wiki/Main_Page)
-\[Alt Text](url)
+
+`\[Alt Text](url)`
 
 ##### Images <a name="images"></a>
 All linked images must be hosted online. You can link to an image on your local machine but it will not be viewable in the published markdown on other devices. When the image is not publishable, the Alt Text input will be shown.
 
 ![cute puppy](http://www.zarias.com/wp-content/uploads/2015/12/61-cute-puppies.jpg)
 
-\!\[Alt Text](url)
+`\!\[Alt Text](url)`
 
-you can resize images using standard HTML
+###### you can resize images using standard HTML
 
 <img src="http://www.zarias.com/wp-content/uploads/2015/12/61-cute-puppies.jpg" width="200"/>
 
-\<img src="url" alt="Alt Text" width="200"/> 
+`\<img src="url" alt="Alt Text" width="200"/>`
 
 *note: the alt="" input is optional
 
@@ -92,7 +93,7 @@ This requires use of **anchor tags** where you want the table of contents to lin
 
 You can then link to that line from anywhere in the document using:
 
-\[That one header\]\(\#anchor_tag\)
+`\[My header\]\(\#anchor_tag\)`
 
 ## Block quotes <a name="quotes"></a>
 the following lines will be a quote
@@ -100,6 +101,7 @@ the following lines will be a quote
 \> it was the best of times
 
 \> it was the worst of times
+
 > it was the best of times
 > 
 > it was the worst of times
