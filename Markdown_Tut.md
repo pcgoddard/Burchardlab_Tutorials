@@ -45,13 +45,13 @@ Use \# to indicate header level
 <del>strikethrough</del>: <del\>word<del\> or ~~ word ~~ <a name="strike"></a>
 
 ## Lists <a name="lists"></a>
-##### unordered <a name="unordered"></a>
+#### unordered <a name="unordered"></a>
 * unordered
 * lists
     -  use \*
     - and \-
 
-##### ordered <a name="ordered"></a>
+#### ordered <a name="ordered"></a>
 1. ordered
 2. lists
 3. use
@@ -59,25 +59,25 @@ Use \# to indicate header level
     2. but not letters
         * number of tabs determines bullet level
 
-##### task list <a name="tasks"></a>
+#### task list <a name="tasks"></a>
 - [x] - [x] this is a **complete** item
 - [ ] - [ ] this is an *incomplete* item
 - [ ] - [ ] list autopopulates format
 
 ## Links <a name="links"></a>
-##### URLs <a name="urls"></a>
+#### URLs <a name="urls"></a>
 example: [wikipedia](https://en.wikipedia.org/wiki/Main_Page)
 
 `\[Alt Text](url)`
 
-##### Images <a name="images"></a>
+#### Images <a name="images"></a>
 All linked images must be hosted online. You can link to an image on your local machine but it will not be viewable in the published markdown on other devices. When the image is not publishable, the Alt Text input will be shown.
 
 ![cute puppy](http://www.zarias.com/wp-content/uploads/2015/12/61-cute-puppies.jpg)
 
 `\!\[Alt Text](url)`
 
-###### you can resize images using standard HTML
+##### you can resize images using standard HTML
 
 <img src="http://www.zarias.com/wp-content/uploads/2015/12/61-cute-puppies.jpg" width="200"/>
 
@@ -85,7 +85,7 @@ All linked images must be hosted online. You can link to an image on your local 
 
 *note: the alt="" input is optional
 
-##### Table of Contents Links <a name="contents"></a>
+#### Table of Contents Links <a name="contents"></a>
 This requires use of **anchor tags** where you want the table of contents to link to.
 
 \# This is my header! `\<a name="anchor_tag"></a>`
@@ -107,13 +107,13 @@ the following lines will be a quote
 > it was the worst of times
 
 ## Code Blocks <a name="code"></a>
-##### Inline Code <a name="inline"></a>
+#### Inline Code <a name="inline"></a>
 
 This is your \`code\` to highlight
 
 This is your `code` to highlight
 
-##### Fenced Code Blocks <a name="block"></a>
+#### Fenced Code Blocks <a name="block"></a>
 
 \```javascript
 
