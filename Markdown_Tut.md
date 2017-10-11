@@ -13,22 +13,29 @@
     - [URLs](#url)
     - [images](#images)
     - [Table of Contents / Anchor Tags](#contents)
+* [Block Quotes](#quotes)
+* [Code Inserts](#code)
+    - [Inline highlighting](#inline)
+    - [Block Code](#block)
+* [Tables](#tables)
+* [Line Breaks](#linebreaks)
+* [Using Special Characters](#escape)
+* [Emojis :stars:](#emojis)
 
-
-
-### Sublime add-ons <a name="add-ons"></a>
+---
+## Sublime add-ons <a name="add-ons"></a>
 * MarkdownEditor *# for easier visualization pre-publication*
 * OmniMarkupPreviewer *# for previewing fully formatted document*
     - ctrl + alt + o
     - OR MarkdownBuddy
 
-### Headers <a name="headers"></a>
+## Headers <a name="headers"></a>
 Use \# to indicate header level
 # \# Heading1
 ## \#\# Sub-heading
 ###### \#\#\#\#\#\# level 6 subheading
 
-### Emphasis <a name="emphasis"></a>
+## Emphasis <a name="emphasis"></a>
 *italic:* \*word\* or \_word\_ <a name="italic"></a>
 
 **bold**: \*\*word\*\* or \_\_bold\_\_ <a name="bold"></a>
@@ -37,7 +44,7 @@ Use \# to indicate header level
 
 <del>strikethrough</del>: <del\>word<del\> or ~~ word ~~ <a name="strike"></a>
 
-### Lists <a name="lists"></a>
+## Lists <a name="lists"></a>
 ##### unordered <a name="unordered"></a>
 * unordered
 * lists
@@ -57,7 +64,7 @@ Use \# to indicate header level
 - [ ] - [ ] this is an *incomplete* item
 - [ ] - [ ] list autopopulates format
 
-### Links <a name="links"></a>
+## Links <a name="links"></a>
 ##### URLs <a name="urls"></a>
 example: [wikipedia](https://en.wikipedia.org/wiki/Main_Page)
 \[Alt Text](url)
@@ -87,7 +94,7 @@ You can then link to that line from anywhere in the document using:
 
 \[That one header\]\(\#anchor_tag\)
 
-### Block quotes <a name="quotes"></a>
+## Block quotes <a name="quotes"></a>
 the following lines will be a quote
 
 \> it was the best of times
@@ -97,7 +104,7 @@ the following lines will be a quote
 > 
 > it was the worst of times
 
-### Code Blocks <a name="code"></a>
+## Code Blocks <a name="code"></a>
 ##### Inline Code <a name="inline"></a>
 
 This is your \`code\` to highlight
@@ -124,7 +131,7 @@ to put any text in a code box, just indent it once
 
     any text
 
-### Tables <a name="tables"></a>
+## Tables <a name="tables"></a>
 * tables use | and - to indicate field divisions
 
 column 1 | column 2
@@ -140,12 +147,12 @@ column 1 | column 2
 cell 1.1 | cell 2.1
 cell 1.2 | cell 2.2
 
-### Line breaks <a name="linebreak"></a>
+## Line breaks <a name="linebreak"></a>
 * 3 or more \* \- or \_
 ---
 
 
-### Escaping characters <a name="escape"></a>
+## Escaping characters <a name="escape"></a>
 removes special syntax meaning: 
 *italic* v. \*asterisks\*
 
@@ -154,11 +161,10 @@ removes special syntax meaning:
 \\ \` \* \# \_ \- \+ \.
 \{ \} \[ \] \( \) \!
 
-### Emjois (github) <a name="emojis"></a>
+## Emjois (github) <a name="emojis"></a>
 
 (just remove the spaces)
 
 :+1: = \: \+ 1 \:
 :sparkles: = \: sparkles \:
 :octocat: = \: octocat \:
-etc.
