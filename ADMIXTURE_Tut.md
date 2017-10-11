@@ -1,5 +1,19 @@
 # ADMIXTURE Tutorial
 #### Pagé Goddard
+#### Sep 28, 2017
+___
+## Content
+* [ADMIXTURE Overview](#summary)
+* [Set up: Choose your file locations](#files)
+* [Pipeline](#format)
+    - [Formatting genotype data](#format)
+    - [Build popfile](#popfile)
+    - [Run Admixture](#admix)
+* [Parsing Results](#results)
+    - [ADMIXTURE Output](#output)
+    - [Reformat results](#reformat)
+    - [Plotting Results](#plot)
+* [Bonus: Thinning Files](#thin)
 ___
 
 Tutorial for calculating global ancestry proportions from **known ancestral populations** using ADMIXTURE.
@@ -8,6 +22,7 @@ Sample data: SAGE 2
 
 [ADMIXTURE manual](https://www.genetics.ucla.edu/software/admixture/admixture-manual.pdf)
 
+<a name="summary"></a>
 ### ADMIXTURE Summary
 Input | Output
 -----------|--------
@@ -20,26 +35,29 @@ test.pop \(*generate in R*\)
 * test binary files are 1/2 encoded
 * k = number of reference populations
 
+<a name="files"></a>
 ### File Locations
 *script variables and directories*
 ```bash
 date="171231" # update current yymmdd
 wkdir="$HOME/wkdir" # choose your working directory
-ancestraldir="/media/BurchardRaid01/LabShare/Data/data_freeze/burchardlab/datafreeze_public/lat1_ancestrals"
-datadir="/media/BurchardRaid01/LabShare/Home/kkeys/gala_sage/phase"
+ancestraldir="path/to/your/ancestry.reference.panels.directory"
+datadir="path/to/your/genotype.data.dir"
 
-# sage2 files
-sagegenofile="$datadir/sage/SAGE_mergedLAT-LATP_030816_rsID" 
-ancestralgenofile="$ancestraldir/merged_ceu_yri_final_rsid_NoDupSNP" # reference panel genotypes; european, african
+# data files
+sagegenofile="$datadir/genotype.data" # I'v set it up this way so that you can make a second object (eg: galagenofile) for another dataset
+ancestralgenofile="$ancestraldir/ref.panels" # reference panel genotypes
+
+# all your data should be in PLINK binary format (.bim .bed. fam)
 ```
-
-## PLINK: format data
+<a name="format"></a>
+## PLINK: format data 
 ADMIXTURE requires 1 input that contains your population of unknown ancestry and the references of known ancestry. 
 If you do not have a cohort-reference panel file, you must merge them together in PLINK. 
 **NB**: plink will merge the files in alphabetical order by FID, so you may have your reference panels merged into the middle of the file rather than appended.
 ```bash
 # PLINK variables
-merge="sage2_mergedLAT-LATP_ref_ceu_yri_${date}"
+merge="genotype_ancestry_merge_${date}"
 ancestry_flip="merged_ceu_yri_final_rsid_NoDupSNP_flippedSNPs_${date}"
 myadmix="sage2_mergedLAT-LATP_ref_ceu_yri_recode12_${date}"
 
@@ -58,6 +76,7 @@ plink --bfile $merge --recode 12 --out $myadmix
 
 *optional: thin files for admixture, see bottom*
 
+<a name="popfile"></a>
 ## R: build popfile
 .pop is required for supervised admixture estimation; Each line of the .pop file corresponds to individual listed on the same line number in the .fam file. If the individual is a population reference, the .pop file line should be a string (beginning with an alphanumeric character) designating the population. If the individual is of unknown ancestry, use “-” (or a blank line, or any non-alphanumeric character) to
 indicate that the ancestry should be estimated. The final format should be a **single column** with **no header** that lines up with the fam file as shown here:
@@ -94,7 +113,7 @@ popfile <- as.data.frame(merge$pop)
 write.table(popfile, file=paste("sage2_mergedLAT-LATP_ref_ceu_yri_recode12_", date, ".pop", sep=""), row.names = F, quote = F)
     # same prefix as $myadmix input
 ```
-
+<a name="admix"></a>
 ## ADMIXTURE: calculate global ancestry
 ```bash
 # ADMIXTURE variables
@@ -114,6 +133,10 @@ seed="2017"
 admixture $myadmix.ped $npop --supervised --seed=$seed -j$nthreads
 ```
 
+<a name="results"></a>
+## Parsing ADMIXTURE results
+
+<a name="output"></a>
 ### Admixture output:
 myadmix.2.P - allele frequencies of the inferred ancestral populations (SNP x ancestry)
 *order: CEU YRI*
@@ -137,7 +160,7 @@ head $myadmix.2.Q
     # 0.208400 0.791600
     # 0.109842 0.890158
 ```
-
+<a name="reformat"></a>
 ### Reformat results
 The following output can be used with programs such as [REAP](http://faculty.washington.edu/tathornt/software/REAP/REAP_Documentation.pdf) to calculate genetic relatedness matrices
 
@@ -178,7 +201,7 @@ head $admixprop_sorted
     # VA30167 VA30167 0.180591 0.819409
     # CH30357 CH30357 0.134801 0.865199
 ```
-
+<a name="plot"></a>
 ### Plotting results
 
 ```R
@@ -236,7 +259,7 @@ afr.plot
 \# **QED** \#
 
 ***
-
+<a name="thin"></a>
 ## Thinning files
 [Documentation](https://www.genetics.ucla.edu/software/admixture/admixture-manual.pdf) SEC 2.3
 
