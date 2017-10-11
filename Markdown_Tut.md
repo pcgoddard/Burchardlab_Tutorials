@@ -71,21 +71,21 @@ All linked images must be hosted online. You can link to an image on your local 
 
 you can resize images using standard HTML
 
-<img src="http://www.zarias.com/wp-content/uploads/2015/12/61-cute-puppies.jpg" alt="cute puppy" width=200"/>
+<img src="http://www.zarias.com/wp-content/uploads/2015/12/61-cute-puppies.jpg" width=200"/>
 
-<img src="url" alt="Alt Text" width=200/> 
+\<img src="url" alt="Alt Text" width=200/> 
 
 *note: the alt="" input is optional
 
 ##### Table of Contents Links <a name="contents"></a>
 This requires use of **anchor tags** where you want the table of contents to link to.
 
-\# This is my header! `\<a name="name_me"></a>`
+\# This is my header! `\<a name="anchor_tag"></a>`
 
 
 You can then link to that line from anywhere in the document using:
 
-\[That one header\]\(\#name_me\)
+\[That one header\]\(\#anchor_tag\)
 
 ### Block quotes <a name="quotes"></a>
 the following lines will be a quote
