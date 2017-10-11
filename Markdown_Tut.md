@@ -12,7 +12,7 @@
 * [Links](#links)
     - [URLs](#url)
     - [images](#images)
-    - [Table of Contents / Anchor Tags](#contents)
+    - [Table of Contents / Anchor Tags](#anchor)
 * [Block Quotes](#quotes)
 * [Code Inserts](#code)
     - [Inline highlighting](#inline)
@@ -85,11 +85,12 @@ All linked images must be hosted online. You can link to an image on your local 
 
 *note: the alt="" input is optional
 
-#### Table of Contents Links <a name="contents"></a>
+#### Table of Contents Links <a name="anchor"></a>
 This requires use of **anchor tags** where you want the table of contents to link to.
 
-\# This is my header! \`<a name="anchor_tag"></a>`
+\# This is my header! `\<a name="anchor_tag"></a>`
 
+* *note: remove the `\` before the first `>` to activate the anchor tag*
 
 You can then link to that line from anywhere in the document using:
 
