@@ -71,9 +71,9 @@ All linked images must be hosted online. You can link to an image on your local 
 
 you can resize images using standard HTML
 
-<img src="http://www.zarias.com/wp-content/uploads/2015/12/61-cute-puppies.jpg" width=200"/>
+<img src="http://www.zarias.com/wp-content/uploads/2015/12/61-cute-puppies.jpg" width="200"/>
 
-\<img src="url" alt="Alt Text" width=200/> 
+\<img src="url" alt="Alt Text" width="200"/> 
 
 *note: the alt="" input is optional
 
