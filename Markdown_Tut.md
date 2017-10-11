@@ -1,35 +1,46 @@
 # Markdown Tutorial
 ### Pagé Goddard
 
-### Sublime add-ons
+## Contents
+* [Sublime Add-ons](#add-ons)
+* [Headers](#headers)
+* [Emphasis](#emphasis)
+    - [italic](#italic)
+    - [bold](#bold)
+    - [combined](#combo)
+    - [strikethrough](#strike)
+* [Lists](#lists)
+
+
+### Sublime add-ons <a name="add-ons"></a>
 * MarkdownEditor *# for easier visualization pre-publication*
 * OmniMarkupPreviewer *# for previewing fully formatted document*
     - ctrl + alt + o
     - OR MarkdownBuddy
 
-### Headings
+### Headers <a name="headers"></a>
 Use \# to indicate header level
 # \# Heading1
 ## \#\# Sub-heading
 ###### \#\#\#\#\#\# level 6 subheading
 
-### Emphasis
-*italic:* \*word\* or \_word\_
+### Emphasis <a name="emphasis"></a>
+*italic:* \*word\* or \_word\_ <a name="italic"></a>
 
-**bold**: \*\*word\*\* or \_\_bold\_\_
+**bold**: \*\*word\*\* or \_\_bold\_\_ <a name="bold"></a>
 
-***combined:*** \*\*\*word\*\*\* or \_\_\_word\_\_\_
+***combined:*** \*\*\*word\*\*\* or \_\_\_word\_\_\_ <a name="combo"></a>
 
-<del>strikethrough</del>: <del\>word<del\> or ~~ word ~~
+<del>strikethrough</del>: <del\>word<del\> or ~~ word ~~ <a name="strike"></a>
 
-### Lists
-##### unordered
+### Lists <a name="lists"></a>
+##### unordered <a name="unordered"></a>
 * unordered
 * lists
     -  use \*
     - and \-
 
-##### ordered
+##### ordered <a name="ordered"></a>
 1. ordered
 2. lists
 3. use
@@ -37,16 +48,31 @@ Use \# to indicate header level
     2. but not letters
         * number of tabs determines bullet level
 
-##### task list
+##### task list <a name="tasks"></a>
 - [x] - [x] this is a **complete** item
 - [ ] - [ ] this is an *incomplete* item
 - [ ] - [ ] list autopopulates format
 
-### Images
+### Images <a name="images"></a>
 \!\[Alt Text](url)
 
-### Links
+### Links <a name="links"></a>
+##### URLs <a name="URLs"></a>
 \[Alt Text](url)
+
+##### Images
+All linked images must be hosted online. You can link to an image on your local machine but it will not be viewable in the published markdown on other devices
+![cute puppy](https://s7.favim.com/610/151130/cute-cuties-dog-smile-Favim.com-3673417.jpg)
+\!\[Alt Text](url)
+
+you can resize images using HTML
+
+##### Table of Contents Links
+This requires use of **anchor tags** where you want the table of contents to link to.
+
+`\<a name="header1"></a>`
+
+
 
 ### Block quotes
 the following lines will be a quote
