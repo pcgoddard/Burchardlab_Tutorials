@@ -65,13 +65,13 @@ example: [wikipedia](https://en.wikipedia.org/wiki/Main_Page)
 ##### Images <a name="images"></a>
 All linked images must be hosted online. You can link to an image on your local machine but it will not be viewable in the published markdown on other devices. When the image is not publishable, the Alt Text input will be shown.
 
-![cute puppy](https://s7.favim.com/610/151130/cute-cuties-dog-smile-Favim.com-3673417.jpg)
+![cute puppy](http://www.zarias.com/wp-content/uploads/2015/12/61-cute-puppies.jpg)
 
 \!\[Alt Text](url)
 
 you can resize images using standard HTML
 
-<img src="https://s7.favim.com/610/151130/cute-cuties-dog-smile-Favim.com-3673417.jpg" alt="cute puppy" style="width: 200px;"/>
+<img src="http://www.zarias.com/wp-content/uploads/2015/12/61-cute-puppies.jpg" alt="cute puppy" width=200"/>
 
 <img src="url" alt="Alt Text" width=200/> 
 
