@@ -57,9 +57,9 @@ If you do not have a cohort-reference panel file, you must merge them together i
 **NB**: plink will merge the files in alphabetical order by FID, so you may have your reference panels merged into the middle of the file rather than appended.
 ```bash
 # PLINK variables
-merge="genotype_ancestry_merge_${date}"
-ancestry_flip="merged_ceu_yri_final_rsid_NoDupSNP_flippedSNPs_${date}"
-myadmix="sage2_mergedLAT-LATP_ref_ceu_yri_recode12_${date}"
+merge="genotype_ancestry_attempt1_${date}"
+ancestry_flip="ref_panels_flippedalleles_${date}"
+myadmix="genotype_ancestry_merge_${date}"
 
 # merge cohort + reference pops
 plink --bfile $sagegenofile --bmerge $ancestralgenofile.bed $ancestralgenofile.bim $ancestralgenofile.fam --make-bed --out $merge
@@ -78,8 +78,7 @@ plink --bfile $merge --recode 12 --out $myadmix
 
 <a name="popfile"></a>
 ## R: build popfile
-.pop is required for supervised admixture estimation; Each line of the .pop file corresponds to individual listed on the same line number in the .fam file. If the individual is a population reference, the .pop file line should be a string (beginning with an alphanumeric character) designating the population. If the individual is of unknown ancestry, use “-” (or a blank line, or any non-alphanumeric character) to
-indicate that the ancestry should be estimated. The final format should be a **single column** with **no header** that lines up with the fam file as shown here:
+.pop is required for supervised admixture estimation; Each line of the .pop file corresponds to individual listed on the same line number in the .fam file. If the individual is a population reference, the .pop file line should be a string (beginning with an alphanumeric character) designating the population. If the individual is of unknown ancestry, use “-” (or a blank line, or any non-alphanumeric character) to indicate that the ancestry should be estimated. The final format should be a **single column** with **no header** that lines up with the fam file as shown here:
 
 fam_ID_source | popfile
 ------|------
@@ -97,21 +96,23 @@ sage | -
 # R variables
 setwd("PATH_TO/wkdir")
 date <- "171231" # update current yymmdd
-merge <- read.table(file=paste("sage2_mergedLAT-LATP_ref_ceu_yri_", date, ".fam", sep=""), header = F, sep = ' ') # need to define these variables
-ceu <- read.table("samples_ceu.txt", header = F, sep = ' ')
-yri <- read.table("samples_yri.txt", header = F, sep = ' ')
-#nam <- read.table("samples_nam.txt", header = F, sep = ' ') # for GALA2
+mydat <- "genotype_ancestry_merge_" # same prefix as myadmix
+merge <- read.table(file=paste(mydat, date, ".fam", sep=""), header = F, sep = ' ') # .fam file has the samples for your population and reference populations
+ceu <- read.table("samples_ceu.txt", header = F, sep = ' ') # european ancestry
+yri <- read.table("samples_yri.txt", header = F, sep = ' ') # african ancestry
+nam <- read.table("samples_nam.txt", header = F, sep = ' ') # native american ancestry
 
 # make popfile
 merge$pop = ifelse(merge$X1 %in% ceu$V1, 'CEU', ifelse(merge$X1 %in% yri$V1, 'YRI', '-')) 
     # if IID is from CEU ref, write CEU; 
     # if IID is from YRI ref, write YRI; 
+    # if IID is from NAM ref, write NAM;
     # if IID is in neither ref, it is a SAGE individual with unknwon ancestry; write - as placeholder
 popfile <- as.data.frame(merge$pop)
 
 # write out
-write.table(popfile, file=paste("sage2_mergedLAT-LATP_ref_ceu_yri_recode12_", date, ".pop", sep=""), row.names = F, quote = F)
-    # same prefix as $myadmix input
+write.table(popfile, file=paste(mydat, date, ".pop", sep=""), row.names = F, quote = F)
+    # check that same prefix as $myadmix input
 ```
 <a name="admix"></a>
 ## ADMIXTURE: calculate global ancestry
@@ -119,7 +120,8 @@ write.table(popfile, file=paste("sage2_mergedLAT-LATP_ref_ceu_yri_recode12_", da
 # ADMIXTURE variables
 
 ## required
-popfile="sage2_mergedLAT-LATP_ref_ceu_yri_recode12_${date}".pop
+myadmix="genotype_ancestry_merge_${date}"
+popfile=${myadmix}.pop
 npop="2" # must reflect number of populations in reference panel
 
 ## optional
@@ -166,10 +168,10 @@ The following output can be used with programs such as [REAP](http://faculty.was
 
 ```bash
 # REAP variables
-reapinput="SAGE_mergedLAT-LATP_030816_rsID_transposed_${date}"
+reapinput="genotype_transposed_${date}"
 myID="${reapinput}_IID_only.txt"
-admixprop="SAGE2_mergedLAT-LATP_ceu_yri_merge_FIDIID_${date}"
-admixprop_sorted="SAGE2_mergedLAT-LATP_ceu_yri_merge_FIDIID_sorted_${date}"
+admixprop="admixporp_${date}"
+admixprop_sorted="admixprop_sorted_${date}"
 
 # transpose genotype files
 plink --bfile $sagegenofile --recode 12 transpose --output-missing-genotype 0 --out $reapinput
@@ -268,7 +270,7 @@ afr.plot
 *SAGE 2*
 ```bash
 # PLINK variables
-datadir="/media/BurchardRaid01/LabShare/Home/kkeys/gala_sage/phase"
+datadir="path/to/your/genotype.data.dir"
 genofile=$myadmix
 slidingwindowsize=50
 slidewidth=10
@@ -278,20 +280,5 @@ thingenofile="${myadmix}_thinned_indeppairwise_${slidingwindowsize}_${slidewidth
 # run PLINK
 plink --bfile $genofile --indep-pairwise $slidingwindowsize $slidewidth $r2val --make-bed --out $thingenofile
 ```
-
-*GALA 2*
-```bash
-# PLINK variables
-datadir="/media/BurchardRaid01/LabShare/Home/kkeys/gala_sage/phase"
-genofile=$datadir/gala2_merged_LATP_noParents_ref_ceu_nam_yri_NoDup
-thingenofile=gala2_merged_LATP_noParents_ref_ceu_nam_yri_NoDup_thinned_indeppairwise_${slidingwindowsize}_${slidewidth}_${r2val}
-slidingwindowsize=50
-slidewidth=10
-r2val="0.1"
-
-# run PLINK
-plink --bfile $genofile --indep-pairwise $slidingwindowsize $slidewidth $r2val --make-bed --out $thingenofile
-```
-
 You can then continue through the popfile and admixture steps with the thinned files.
 **NB**: Remember to test the order of thingenofile before making popfile
