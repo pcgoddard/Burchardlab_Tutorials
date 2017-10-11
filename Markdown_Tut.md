@@ -93,9 +93,8 @@ This is your `code` to highlight
 ### Fenced Code Blocks
 
 \```javascript
-
-code
-
+function test() {
+console.log("hello world");
 \```
 
 ```javascript
@@ -139,6 +138,9 @@ removes special syntax meaning:
 \{ \} \[ \] \( \) \!
 
 ### Emjois (github)
+
+(just remove the spaces)
+
 :+1: = \: \+ 1 \:
 
 :sparkles: = \: sparkles \:
