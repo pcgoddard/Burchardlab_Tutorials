@@ -100,7 +100,8 @@ All linked images must be hosted online. You can link to an image on your local 
 This requires use of **anchor tags** where you want the table of contents to link to.
 
 `\<a name="anchor_tag"></a>`
-\# This is my header!
+
+**\# This is my header!**
 
 * *note: remove the `\` before the first `>` to activate the anchor tag*
 * *personal preference: I like to put the anchor tag **above** the tagged section so that when the link jumps to that section you still see the header*
