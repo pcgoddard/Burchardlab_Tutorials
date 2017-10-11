@@ -88,7 +88,7 @@ All linked images must be hosted online. You can link to an image on your local 
 #### Table of Contents Links <a name="contents"></a>
 This requires use of **anchor tags** where you want the table of contents to link to.
 
-\# This is my header! `\<a name="anchor_tag"></a>`
+\# This is my header! \`<a name="anchor_tag"></a>`
 
 
 You can then link to that line from anywhere in the document using:
