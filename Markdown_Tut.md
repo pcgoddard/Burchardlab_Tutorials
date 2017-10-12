@@ -1,6 +1,7 @@
 # Markdown Tutorial
-### Pagé Goddard
-
+#### Pagé Goddard
+#### Sep 1, 2017
+---
 ## Contents
 * [Sublime Add-ons](#add-ons)
 * [Headers](#headers)
