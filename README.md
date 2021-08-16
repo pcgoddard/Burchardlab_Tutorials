@@ -10,7 +10,6 @@ I have set up this repository as a catch-all for the notes I make as I learn new
 - **Markdown** - quick summary of markdown syntax used to create the following files
 - **PLINK_QC** - intro to running quality control for genotype array data in PLINK to prepare for GWAS; example shown is the process used for the telomere project
 - **Useful_databases** - a dynamic and curated list for different bioinfomatic databases by data type / research question
+- **ggplot_manhattan** - function for creating a beautiful and customizable manhattan plot using ggplot2
 
-forthcoming:
-* PLINK_GWAS
-* PARIS_pathway_analysis
+See the Wiki tab for more details and tutorials.
